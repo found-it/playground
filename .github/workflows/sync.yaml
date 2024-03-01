@@ -72,34 +72,34 @@ jobs:
       - name: Sum
         run: |
           python << SCRIPT
-            import pathlib
-            import re
+          import pathlib
+          import re
 
-            IMAGE_PATTERN = re.compile(r"image \"([\w\.-]+\/[\w\.-]+\/[\w\.-]+:[\w\.-]+)\"")
-            ERRORS = {}
-            for log_file in pathlib.Path("/tmp/synclogs").glob('**/sync.log'):
-                with open(log_file, 'r', encoding="utf-8") as file:
-                    for line in file:
-                        if 'Error: image' in line:
-                            match = IMAGE_PATTERN.search(line)
-                            if match:
-                                image = match.group(1)
-                                if image not in ERRORS:
-                                    ERRORS[image] = set()
-                                index = line.index(image)
-                                errstring = line[index + len(image) + 2:].strip()
-                                ERRORS[image].add(errstring)
+          IMAGE_PATTERN = re.compile(r"image \"([\w\.-]+\/[\w\.-]+\/[\w\.-]+:[\w\.-]+)\"")
+          ERRORS = {}
+          for log_file in pathlib.Path("/tmp/synclogs").glob('**/sync.log'):
+              with open(log_file, 'r', encoding="utf-8") as file:
+                  for line in file:
+                      if 'Error: image' in line:
+                          match = IMAGE_PATTERN.search(line)
+                          if match:
+                              image = match.group(1)
+                              if image not in ERRORS:
+                                  ERRORS[image] = set()
+                              index = line.index(image)
+                              errstring = line[index + len(image) + 2:].strip()
+                              ERRORS[image].add(errstring)
 
-            SUMMARY = """
-            | Image | Error |
-            | ----- | ------- |
-            """
-            for image, errs in ERRORS.items():
-                for err in errs:
-                    print(image, err)
-                    SUMMARY += f"| {image} | {err} |\n"
+          SUMMARY = """
+          | Image | Error |
+          | ----- | ------- |
+          """
+          for image, errs in ERRORS.items():
+              for err in errs:
+                  print(image, err)
+                  SUMMARY += f"| {image} | {err} |\n"
 
-            pathlib.Path("/tmp/summary.md").write_text(SUMMARY, encoding="utf-8")
+          pathlib.Path("/tmp/summary.md").write_text(SUMMARY, encoding="utf-8")
           SCRIPT
 
           cat /tmp/summary.md >> $GITHUB_STEP_SUMMARY
