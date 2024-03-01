@@ -63,13 +63,9 @@ jobs:
       - name: Download a single artifact
         uses: actions/download-artifact@v4
         with:
-          path: /tmp/synclog
+          path: /tmp/synclogs
           pattern: 'sync-*'
-      - name: Test
-        run: |
-          find /tmp/synclog -name 'sync.log' -exec cat {} + | grep 'Error: image' > /tmp/errors
-
-      - name: Sum
+      - name: Generate summary
         run: |
           python << SCRIPT
           import pathlib
