@@ -61,7 +61,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: /tmp/synclog
-          pattern: *.log
+          pattern: '*.log'
       - name: Test
         run: |
           find /tmp/synclog
