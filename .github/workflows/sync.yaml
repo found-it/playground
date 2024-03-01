@@ -78,6 +78,7 @@ jobs:
           IMAGE_PATTERN = re.compile(r"image \"([\w\.-]+\/[\w\.-]+\/[\w\.-]+:[\w\.-]+)\"")
           ERRORS = {}
           for log_file in pathlib.Path("/tmp/synclogs").glob('**/sync.log'):
+              print("found", log_file)
               with open(log_file, 'r', encoding="utf-8") as file:
                   for line in file:
                       if 'Error: image' in line:
@@ -89,6 +90,7 @@ jobs:
                               index = line.index(image)
                               errstring = line[index + len(image) + 2:].strip()
                               ERRORS[image].add(errstring)
+                              print(ERRORS)
 
           SUMMARY = """
           | Image | Error |
