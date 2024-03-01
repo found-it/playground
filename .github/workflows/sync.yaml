@@ -43,9 +43,10 @@ jobs:
 
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: synclog
-          path: /tmp/synclogs/${{ matrix.customer }}.log
+          name: ${{ matrix.customer }}.log
+          path: /tmp/synclogs/sync.log
           retention-days: 1
 
   roundup:
@@ -59,8 +60,9 @@ jobs:
       - name: Download a single artifact
         uses: actions/download-artifact@v4
         with:
-          name: synclog
+          path: /tmp/synclog
+          pattern: *.log
       - name: Test
         run: |
-          ls /tmp/synclog
+          find /tmp/synclog
 
