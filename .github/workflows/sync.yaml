@@ -39,7 +39,7 @@ jobs:
         run: |
           set -x
           mkdir -p /tmp/synclogs
-          echo "Error: this is a log line for ${{ matrix.customer }}" | tee "/tmp/synclogs/${{ matrix.customer }}.log"
+          echo "Error: this is a log line for ${{ matrix.customer }}" | tee "/tmp/synclogs/sync.log"
 
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v4
