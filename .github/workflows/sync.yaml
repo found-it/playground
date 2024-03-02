@@ -39,10 +39,7 @@ jobs:
         run: |
           set -x
           mkdir -p /tmp/synclogs
-          echo '2024-03-01T18:43:12.9335007Z Error: image "blah.com/example.com/image:latest" has not been signed in the last 72h0m0s (last: 2024-02-23 17:01:02 +0000 UTC)' | tee "/tmp/synclogs/sync.log"
-          if [ ${{matrix.customer}} -eq "two.example.com" ]; then
-            echo '2024-03-01T18:43:12.9335007Z Error: image "blah.com/example.com/image2:latest" has not been signed in the last 72h0m0s (last: 2024-02-23 17:01:02 +0000 UTC)' | tee "/tmp/synclogs/sync.log"
-          fi
+          echo '2024-03-01T18:43:12.9335007Z Error: image "blah.com/${{matrix.customer}}/image:latest" has not been signed in the last 72h0m0s (last: 2024-02-23 17:01:02 +0000 UTC)' | tee "/tmp/synclogs/sync.log"
 
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v4
