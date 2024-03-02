@@ -95,7 +95,7 @@ jobs:
           for image, errs in ERRORS.items():
               for err in errs:
                   print(image, err)
-                  SUMMARY += f"| ```{image}``` | ```{err}``` |\n"
+                  SUMMARY += f"| \`{image}\` | \`{err}\` |\n"
 
           pathlib.Path("/tmp/summary.md").write_text(SUMMARY, encoding="utf-8")
           SCRIPT
