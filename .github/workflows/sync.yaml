@@ -98,3 +98,4 @@ jobs:
           SCRIPT
 
           cat /tmp/summary.md >> $GITHUB_STEP_SUMMARY
+          exit 1
