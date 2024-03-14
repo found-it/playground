@@ -5,4 +5,5 @@ subject_pattern: "(118307233022532744014|108619654488894585402)"
 # Just cloning repo.
 permissions:
   issues: read
-  repo: read
+  actions: read
+  workflows: read
