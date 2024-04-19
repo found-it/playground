@@ -7,3 +7,4 @@ claim_pattern:
 permissions:
   actions: read
   workflows: read
+  issues: read
